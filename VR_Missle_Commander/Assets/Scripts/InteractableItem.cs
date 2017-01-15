@@ -36,6 +36,18 @@ public class InteractableItem : MonoBehaviour
 
 			this.rigidbody.angularVelocity = (Time.fixedDeltaTime * angle * axis) * rotationFactor;
 		}
+		else
+		{
+			rotationDelta = Quaternion.Euler (0, 180, 0) * Quaternion.Inverse(transform.rotation);
+			rotationDelta.ToAngleAxis (out angle, out axis);
+
+			if (angle > 180)
+			{
+				angle -= 360;
+			}
+
+			this.rigidbody.angularVelocity = (Time.fixedDeltaTime * angle * axis) * rotationFactor;
+		}
 	}
 
 	public void BeginInteraction(WandController wand)

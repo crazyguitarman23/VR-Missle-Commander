@@ -62,11 +62,26 @@ public class WandController : MonoBehaviour
 		{
 			interactingItem.EndInteraction (this);
 		}
+
+		if (controller.GetPressDown(triggerButton))
+		{
+			if (interactingItem.GetComponent<JoystickBehaviour>())
+			{
+				StartCoroutine(interactingItem.GetComponent<JoystickBehaviour>().Fire());
+			}
+		}
+
+		if (controller.GetPressUp(triggerButton))
+		{
+			if (interactingItem.GetComponent<JoystickBehaviour>())
+			{
+				StopCoroutine(interactingItem.GetComponent<JoystickBehaviour>().Fire());
+			}
+		}
 	}
 
 	private void OnTriggerEnter(Collider collider)
 	{
-		Debug.Log ("test");
 		InteractableItem collidedItem = collider.GetComponent<InteractableItem> ();
 		if (collidedItem)
 		{
